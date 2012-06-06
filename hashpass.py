@@ -15,7 +15,7 @@ Usage:
 gen:
   Args:
     password: raw password string.
-    argo: hash argorithm. default is sha1.
+    algo: hash algorithm. default is sha1.
     stretch: number of stretching. default is 1000.
   
   Returns:
@@ -35,21 +35,21 @@ import hmac
 import uuid
 import base64
 
-_ARGO = 'sha1'
+_ALGO = 'sha1'
 _STRETCH = 1000
 
-def gen(password, argo=_ARGO, stretch=_STRETCH):
+def gen(password, algo=_ALGO, stretch=_STRETCH):
   salt = _b64encode(uuid.uuid4().bytes)
-  ret = _gen(password, salt, argo, stretch)
-  return '%s$%s$%s' % (argo, salt, ret)
+  ret = _gen(password, salt, algo, stretch)
+  return '%s$%s$%s' % (algo, salt, ret)
 
 def check(password, target, stretch=_STRETCH):
-  argo, salt, val = target.split('$')
-  ret = _gen(password, salt, argo, stretch)
+  algo, salt, val = target.split('$')
+  ret = _gen(password, salt, algo, stretch)
   return ret == val
 
-def _gen(password, salt, argo, stretch):
-  mod = getattr(hashlib, argo)
+def _gen(password, salt, algo, stretch):
+  mod = getattr(hashlib, algo)
   obj = hmac.new(salt, digestmod=mod)
   for _ in xrange(stretch):
     obj.update(password)
@@ -61,17 +61,7 @@ def _b64encode(s):
 
 def main():
   import sys
-  try:
-    password = sys.argv[1]
-  except IndexError:
-    return
-  import time
-  start = time.time()
-  ret = gen(password)
-  elapsed = time.time() - start
-  assert check(password, ret)
-  assert not check(password+'a', ret)
-  print password, ret, elapsed
+  print gen(sys.argv[1])
 
 if __name__ == '__main__':
   main()
