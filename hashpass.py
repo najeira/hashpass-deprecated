@@ -30,10 +30,10 @@ check:
     whether if password is correct or not.
 """
 
+import base64
+import uuid
 import hashlib
 import hmac
-import uuid
-import base64
 
 _ALGO = 'sha1'
 _STRETCH = 1000
@@ -50,18 +50,19 @@ def check(password, target, stretch=_STRETCH):
 
 def _gen(password, salt, algo, stretch):
   mod = getattr(hashlib, algo)
-  obj = hmac.new(salt, digestmod=mod)
+  obj = hmac.new(password, None, mod)
   for _ in xrange(stretch):
-    obj.update(password)
-    password = obj.digest()
-  return _b64encode(password)
+    obj.update(salt)
+  return _b64encode(obj.digest())
 
 def _b64encode(s):
   return base64.standard_b64encode(s).rstrip('=')
 
 def main():
-  import sys
+  import sys, time
+  s = time.time()
   print gen(sys.argv[1])
+  print time.time() - s
 
 if __name__ == '__main__':
   main()
