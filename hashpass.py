@@ -4,7 +4,7 @@
 Usage:
   >>> ret = hashpass.gen('your password')
   >>> ret
-  sha1$O9GPFuPuRhak8OrOMP0veQ$okNAiuHGLF0a98ii2phUJ9yZIHM
+  sha1$Ti238lm+TEmCPgroo2/sqA$/WNnS7UT0uItvD/SqY/O0MCHe+4
   
   >>> hashpass.check('your password', ret)
   True
