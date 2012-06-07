@@ -49,10 +49,11 @@ def check(password, target, stretch=_STRETCH):
   return ret == val
 
 def _gen(password, salt, algo, stretch):
+  password += salt
   mod = getattr(hashlib, algo)
   obj = hmac.new(password, None, mod)
   for _ in xrange(stretch):
-    obj.update(salt)
+    obj.update(password)
   return _b64encode(obj.digest())
 
 def _b64encode(s):

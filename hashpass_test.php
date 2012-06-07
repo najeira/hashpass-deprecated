@@ -3,18 +3,18 @@
 require_once('hashpass.php');
 
 $password = 'test';
-assert(hashpass_check($password, 'sha1$c9dunTK+Rv+JSA/u2Eqn+Q$ozHGjgzOoltVdJ7gQaM4BZaPxHo'));
-assert(hashpass_check($password, 'sha1$F91SELAoROiDjS3KajfKGA$GQ6IdA+PkfbET7MwfITvB7gCTuE'));
-assert(hashpass_check($password, 'sha1$MbhKsXkxRoeGCl9pRDwGnA$B/4NtNiJ3GAW/zP6/0tiM5Mdbfo'));
-assert(hashpass_check($password, 'sha1$N9tbpINlTS+GcV3Vt9JR/Q$z7AsnUL7t0BiNJDlfDdfjYvE06U'));
-assert(hashpass_check($password, 'sha1$Vq4bkWK+Q5uXFKh8zlTMNQ$0+FZgfMOR8ckY/+cI8ZvWYLg0xQ'));
+assert(hashpass_check($password, 'sha1$0SIN//v0SCuQlnpzvC2TtQ$WkrhcOuwqiOeIYWYE2rook0SzbI'));
+assert(hashpass_check($password, 'sha1$VD+Idw00RzuJvaHuEhB7Hg$QxUTMBgc+eD3TNVEl4QpTniaTmI'));
+assert(hashpass_check($password, 'sha1$EUQlWrBpSoecM3gYYpGxow$b8HZ5kGu4hTe2g2pfB4fTJhH2Sg'));
+assert(hashpass_check($password, 'sha1$h437ZvJFTkWGjS2LDyiIcw$wqCZxwLqCH4dHlk2GUGBbs1s3xM'));
+assert(hashpass_check($password, 'sha1$cyQluRfxS2WtFjG/fJNEZA$9CTWevy+johvDxhRoyQVMwa5VPA'));
 
 $password = 'tset';
-assert(!hashpass_check($password, 'sha1$c9dunTK+Rv+JSA/u2Eqn+Q$ozHGjgzOoltVdJ7gQaM4BZaPxHo'));
-assert(!hashpass_check($password, 'sha1$F91SELAoROiDjS3KajfKGA$GQ6IdA+PkfbET7MwfITvB7gCTuE'));
-assert(!hashpass_check($password, 'sha1$MbhKsXkxRoeGCl9pRDwGnA$B/4NtNiJ3GAW/zP6/0tiM5Mdbfo'));
-assert(!hashpass_check($password, 'sha1$N9tbpINlTS+GcV3Vt9JR/Q$z7AsnUL7t0BiNJDlfDdfjYvE06U'));
-assert(!hashpass_check($password, 'sha1$Vq4bkWK+Q5uXFKh8zlTMNQ$0+FZgfMOR8ckY/+cI8ZvWYLg0xQ'));
+assert(!hashpass_check($password, 'sha1$0SIN//v0SCuQlnpzvC2TtQ$WkrhcOuwqiOeIYWYE2rook0SzbI'));
+assert(!hashpass_check($password, 'sha1$VD+Idw00RzuJvaHuEhB7Hg$QxUTMBgc+eD3TNVEl4QpTniaTmI'));
+assert(!hashpass_check($password, 'sha1$EUQlWrBpSoecM3gYYpGxow$b8HZ5kGu4hTe2g2pfB4fTJhH2Sg'));
+assert(!hashpass_check($password, 'sha1$h437ZvJFTkWGjS2LDyiIcw$wqCZxwLqCH4dHlk2GUGBbs1s3xM'));
+assert(!hashpass_check($password, 'sha1$cyQluRfxS2WtFjG/fJNEZA$9CTWevy+johvDxhRoyQVMwa5VPA'));
 
 foreach (array('md5', 'sha1', 'sha256') as $algo) {
 	foreach (array(1, 10, 100, 1000, 10000) as $i) {
