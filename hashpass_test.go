@@ -1,6 +1,7 @@
 package hashpass
 
 import (
+	//"fmt"
 	"testing"
 )
 
@@ -31,29 +32,38 @@ func TestHASHPASS(t *testing.T) {
 	algos := []string{"md5", "sha1", "sha256"}
 	stretches := []int{1, 10, 100, 1000, 10000}
 	for _, algo := range algos {
+		var ret string
 		for _, stretch := range stretches {
-			ret := Gen(pwd, algo, stretch)
-			if !Check(pwd, ret, stretch) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd, ret, stretch)
+			ret = Gen(pwd, algo, stretch)
+			
+			chk := pwd
+			if !Check(chk, ret, stretch) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch)
 			}
-			if Check(pwd, ret, stretch - 1) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd, ret, stretch - 1)
+			if Check(chk, ret, stretch - 1) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch - 1)
 			}
-			if Check(pwd, ret, stretch + 1) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd, ret, stretch + 1)
+			if Check(chk, ret, stretch + 1) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch + 1)
 			}
-			if Check(pwd+"a", ret, stretch - 1) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd + "a", ret, stretch - 1)
+			if ret == Gen(chk, algo, stretch) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch)
 			}
-			if Check(pwd+"a", ret, stretch) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd + "a", ret, stretch)
+			
+			chk = pwd + "a"
+			if Check(chk, ret, stretch - 1) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch - 1)
 			}
-			if Check(pwd+"a", ret, stretch + 1) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd + "a", ret, stretch + 1)
+			if Check(chk, ret, stretch) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch)
 			}
-			if ret == Gen(pwd+"a", algo, stretch) {
-				t.Errorf("pwd=%s, ret=%s, stretch=%s\n", pwd + "a", ret, stretch)
+			if Check(chk, ret, stretch + 1) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch + 1)
+			}
+			if ret == Gen(chk, algo, stretch) {
+				t.Errorf("chk=%s, ret=%s, stretch=%s\n", chk, ret, stretch)
 			}
 		}
+		//fmt.Println(ret)
 	}
 }
