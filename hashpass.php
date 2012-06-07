@@ -1,7 +1,7 @@
 <?php
 
 function hashpass_gen($password, $algo='sha1', $stretch=1000) {
-	$salt = rtrim(base64_encode(uniqid()), '=');
+	$salt = rtrim(base64_encode(uniqid('', true)), '=');
 	$ret = _hashpass_gen($password, $salt, $algo, $stretch);
 	return sprintf('%s$%s$%s', $algo, $salt, $ret);
 }
